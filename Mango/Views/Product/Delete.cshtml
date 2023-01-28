@@ -1,0 +1,71 @@
+﻿@model Mango.Models.Product
+
+<form method="post" asp-action="Remove">
+    @*specify explicitly method name (Remove) to prevent confusion*@
+    @*Using asp-for="Id" to safe find object in the controller`s method.*@
+    <input asp-for="Id" hidden />
+    <div class="border p-3">
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Delete Category</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        @*Using tag helpers for Create method*@
+                        <input asp-for="Name" class="form-control" disabled />
+                    </div>
+
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Description" class="form-control summernote" ></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            <input type="submit" class="btn btn-danger w-100" value="Delete" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @if (Model.Id != 0) {
+                <img src="@WebConstants.ImagePath@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb"/>    
+                }
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Client-side validation*@
+@section Scripts{
+    @*Link to validation scripts file*@
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).raeady(function () {
+            $('.summernote').summernote(
+                height: 250,
+                disable: true
+            ));
+        });
+    </script>
+}
+
